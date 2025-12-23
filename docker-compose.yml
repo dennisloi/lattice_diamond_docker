@@ -1,0 +1,21 @@
+services:
+  fpga:
+    image: dennisloi/lattice_diamond_docker:latest
+    container_name: fpga_tool
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      # X11 connection stuff
+      - /tmp/.X11-unix:/tmp/.X11-unix
+
+      # Path to the license
+      - ${LICENSE_PATH}:/opt/fpga_tool/diamond/license
+
+      # Path to the external projects
+      - ${WORKSPACE_PATH}:/workspace
+    stdin_open: true
+    tty: true
+    command: bash
+    networks:
+      default:
+        mac_address: ${MAC_ADDRESS}
